@@ -1,84 +1,46 @@
 public class L0033_Search_In_Rotated_Sorted_Array
 {
-    public int search(int[] nums, int target) {
-        if(nums == null || nums.length == 0)
+    public int search(int[] nums, int target)
+    {
+        int l = 0;
+        int r = nums.length-1;
+        int mid ;
+
+        while (l<=r)
         {
-            return -1;
-        }
-        int left = 0;
-        int right = nums.length-1;
-        while(left<right)
-        {
-            int mid = left + (right-left)/2;
-            if(nums[mid]>nums[right])
+            mid = l+(r-l)/2;
+            if(target == nums[mid])
             {
-                left=mid+1;
+                return mid;
+            }
+
+            ////说明左侧有序
+            if(nums[mid]>=nums[l])
+            {
+                //target在左侧区间内
+                if(target>=nums[l] && target<nums[mid])
+                {
+                    r = mid-1;
+                }
+                //target在右侧区间内
+                else
+                {
+                    l= mid+1;
+                }
             }
             else
             {
-                right=mid;
-            }
-        }
-        //找到转择点
-        int midNum = left;
-
-
-        if(nums[midNum]>target)
-        {
-            return -1;
-        }
-        else if (nums[midNum]==target)
-        {
-            return midNum;
-        }
-        else
-        {
-            //说明在左侧
-            if(target>nums[nums.length-1])
-            {
-                int left1= 0;
-                int right1 = midNum-1;
-
-                while(left1<=right1)
+                //target在右侧区间内
+                if(target>nums[mid] && target<=nums[r])
                 {
-                    int midNum1 = left1 + (right1-left1)/2;
-                    if(nums[midNum1]==target)
-                    {
-                        return midNum1;
-                    }
-                    else if(nums[midNum1]>target)
-                    {
-                        right1=midNum1-1;
-                    }
-                    else
-                    {
-                        left1 = midNum1 +1;
-                    }
+                    l=mid+1;
                 }
-                return -1;
-            }
-            else
-            {
-                int left2= midNum+1;
-                int right2=nums.length;
-                while(left2<=right2)
+                else
                 {
-                    int midNum2 = left2 + (right2-left2)/2;
-                    if(nums[midNum2]==target)
-                    {
-                        return midNum2;
-                    }
-                    else if(nums[midNum2]>target)
-                    {
-                        right2=midNum2-1;
-                    }
-                    else
-                    {
-                        left2 = midNum2 +1;
-                    }
+                    r=mid-1;
                 }
-                return -1;
             }
         }
+        return -1;
     }
 }
