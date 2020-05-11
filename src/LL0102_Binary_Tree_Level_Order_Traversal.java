@@ -1,3 +1,5 @@
+import base.TreeNode;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,11 +45,6 @@ public class LL0102_Binary_Tree_Level_Order_Traversal
         return res;
     }
 
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
+
 }
 
